@@ -1,248 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment_container"
-    android:padding="10dp"
-    android:background=" #f2f3f4 ">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorBackground"
+    tools:context=".view.fragment.HomeFragment">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollViewHome"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="293dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            app:srcCompat="@mipmap/ic_launcher" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textColor="@android:color/black"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textAlignment="textStart"
-            android:text="Tranding"/>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/ImageViewGambar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher_round" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <TextView
-                        android:id="@+id/TextViewTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="This is Title"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textAlignment="textStart"
-                        android:padding="10dp"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="10dp"
-                        android:gravity="center_vertical">
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/ButtonTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="normal"
-                            android:textAlignment="textStart"
-                            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                            android:text="Date"
-                            app:icon="@drawable/ic_access_time"/>
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/button_comment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
-                            app:icon="@drawable/ic_comment"
-                            android:text="10"
-                            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/button_likes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="10"
-                            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                            app:icon="@drawable/ic_favorite_outlined"/>
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-
-
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lihat Lainnya"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:textColor=" #16a085 "/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textAlignment="textStart"
-            android:text="Cover Story"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#FFFFFF">
-
-            <ImageView
-                android:id="@+id/ImageViewStory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:layout_marginLeft="70dp"
-                android:layout_marginRight="16dp"
-                android:src="@mipmap/ic_launcher_round" />
-
-            <ImageView
-                android:id="@+id/ImageViewStory1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:layout_marginRight="16dp"
-                android:src="@mipmap/ic_launcher_round" />
-
-            <ImageView
-                android:id="@+id/ImageViewStory2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher_round" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textAlignment="textStart"
-            android:text="Berita"/>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp">
 
-                <ImageView
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerFrameLayoutSlider"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher_round" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    app:shimmer_duration="800"
+                    android:layout_marginBottom="20dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="This is Title"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textAlignment="textStart"
-                        android:padding="10dp"/>
-
+                    <!-- Adding 10 rows of placeholders -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="10dp"
-                        android:gravity="center_vertical">
+                        android:orientation="vertical">
 
-                        <com.google.android.material.button.MaterialButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                            android:textStyle="normal"
-                            android:textAlignment="textStart"
-                            android:text="Date"
-                            app:icon="@drawable/ic_access_time"/>
-
-                        <com.google.android.material.button.MaterialButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                            android:layout_marginLeft="16dp"
-                            android:text="15"
-                            app:icon="@drawable/ic_comment"/>
-
-                        <com.google.android.material.button.MaterialButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="10"
-                            app:icon="@drawable/ic_favorite_outlined"
-                            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
-
-
+                        <include layout="@layout/list_placeholder_slider" />
 
                     </LinearLayout>
 
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
-                </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/relativeLayoutSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:layout_marginBottom="20dp"
+                    android:visibility="gone">
 
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/pagerSlider"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentTop="true" />
+
+                    <com.viewpagerindicator.CirclePageIndicator
+                        android:id="@+id/indicatorSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="bottom"
+                        android:padding="10dip"
+                        app:centered="true"
+                        app:fillColor="@android:color/white"
+                        app:pageColor="#818486"
+                        app:snap="false"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trending"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_marginBottom="10dp"/>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerFrameLayoutTranding"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    app:shimmer_duration="800">
+
+                    <!-- Adding 10 rows of placeholders -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/list_placeholder_news" />
+
+                        <include layout="@layout/list_placeholder_news" />
+
+                        <include layout="@layout/list_placeholder_news" />
+
+                    </LinearLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recylerViewTranding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/materialButtonMoreTrending"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeColor="@color/colorPrimary"
+                    app:strokeWidth="1dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Lihat Lainnya"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cover Story"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_marginBottom="10dp"/>
 
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerFrameLayoutCoverStory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                app:shimmer_duration="800">
 
-    </LinearLayout>
+                <!-- Adding 10 rows of placeholders -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-</ScrollView>
+                    <include layout="@layout/list_placeholder_cover_story" />
 
+                    <include layout="@layout/list_placeholder_cover_story" />
+
+                    <include layout="@layout/list_placeholder_cover_story" />
+
+                    <include layout="@layout/list_placeholder_cover_story" />
+
+                    <include layout="@layout/list_placeholder_cover_story" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recylcerViewCoverStory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="16dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Berita"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_marginBottom="10dp"/>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerFrameLayoutNews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    app:shimmer_duration="800">
+
+                    <!-- Adding 10 rows of placeholders -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/list_placeholder_news" />
+
+                        <include layout="@layout/list_placeholder_news" />
+
+                        <include layout="@layout/list_placeholder_news" />
+
+                        <include layout="@layout/list_placeholder_news" />
+
+                        <include layout="@layout/list_placeholder_news" />
+
+                        <include layout="@layout/list_placeholder_news" />
+
+                        <include layout="@layout/list_placeholder_news" />
+
+                        <include layout="@layout/list_placeholder_news" />
+
+                        <include layout="@layout/list_placeholder_news" />
+
+                        <include layout="@layout/list_placeholder_news" />
+
+                    </LinearLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recylcerViewNews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
