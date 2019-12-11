@@ -12,8 +12,12 @@ import com.google.firebase.iid.InstanceIdResult
 import com.monicatifanyz.digimagz.Constant
 import com.monicatifanyz.digimagz.R
 import com.monicatifanyz.digimagz.api.InitRetrofit
+import com.monicatifanyz.digimagz.api.NotifApi
+import com.monicatifanyz.digimagz.model.NotifValue
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Field
 import com.monicatifanyz.digimagz.view.activity.MainActivity as MainActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -38,13 +42,19 @@ class SplashActivity : AppCompatActivity() {
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener(object :OnSuccessListener<InstanceIdResult>{
             override fun onSuccess(p0: InstanceIdResult?) {
                 var retrofit:Retrofit = Retrofit.Builder()
-                    .baseUrl(Constant.URL)
+                    .baseUrl(Constant().URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
+
+
+
             }
 
         })
 
+
+        initRetrofit.setOnRetrofitSuccess(object:InitRetrofit.OnRetrofitSuccess)
+        override fun
 
     }
 }
