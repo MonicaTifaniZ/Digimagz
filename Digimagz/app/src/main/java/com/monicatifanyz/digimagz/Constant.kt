@@ -6,7 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 
-object Constant {
+class Constant {
     val URL_IMAGE_NEWS = "http://digimon.kristomoyo.com/images/news/"
     val URL_IMAGE_STORY = "http://digimon.kristomoyo.com/images/coverstory/"
     val URL = "http://digimagz.kristomoyo.com/"
@@ -62,5 +62,4 @@ object Constant {
 
         return orient
     }
-
 }
