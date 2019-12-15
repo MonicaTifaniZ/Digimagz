@@ -1,6 +1,5 @@
 package com.monicatifanyz.digimagz.view.activity
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,21 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.monicatifanyz.digimagz.R
+import com.monicatifanyz.digimagz.adapter.RecyclerViewNewsAdapter
 import com.monicatifanyz.digimagz.api.InitRetrofit
 import com.monicatifanyz.digimagz.model.NewsModel
+import kotlinx.android.synthetic.main.activity_list_news.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.shimmerFrameLayoutNews
-import retrofit2.Retrofit
 import java.util.ArrayList
 
 class ListNewsActivity : AppCompatActivity() {
 
 
     private lateinit var initRetrofit:InitRetrofit
-    private var recyclerViewNews : RecyclerView? = null
-    private val frameLayoutEmpty : FrameLayout? = null
-    private lateinit var shimmerFrameLayout: ShimmerFrameLayout
     private var params : String = ""
     private var materialToolbar : MaterialToolbar? = null
 
@@ -43,7 +39,6 @@ class ListNewsActivity : AppCompatActivity() {
         setTitle("")
 
         initRetrofit = InitRetrofit()
-        recyclerViewNews = findViewById(R.id.shimmerFrameLayoutNews)
 
         recyclerView()
 
@@ -57,17 +52,14 @@ class ListNewsActivity : AppCompatActivity() {
                     if (arrayList != null) {
                         if(arrayList.isNotEmpty()){
                             Log.i("Size", arrayList.size.toString())
-                            showRecyclerListViewNews(arrayList)
+                            showRecyclerListViewNews(arrayList as ArrayList<NewsModel>)
 
                         } else{
-                            if (frameLayoutEmpty != null) {
-                                frameLayoutEmpty.visibility = View.VISIBLE
-                                recyclerViewNews.visibility = View.GONE
-                                shimmerFrameLayoutNews.stopShimmer()
-                                shimmerFrameLayoutNews.visibility = View.GONE
-                                Log.i("Size", arrayList.size.toString())
-                            }
-
+                            frameLayoutEmpty.visibility = View.VISIBLE
+                            recyclerViewNews.visibility = View.GONE
+                            shimmerFrameLayoutNewsListNews.stopShimmer()
+                            shimmerFrameLayoutNewsListNews.visibility = View.GONE
+                            Log.i("Size", arrayList.size.toString())
                         }
                     }
                 }
@@ -98,9 +90,14 @@ class ListNewsActivity : AppCompatActivity() {
     }
 
     private fun showRecyclerListViewNews(newsModelArrayList:ArrayList<NewsModel>){
-        recyclerViewNews!!.setHasFixedSize(true)
-        recyclerViewNews!!.layoutManager = LinearLayoutManager(this)
-        var recyclerViewNewsAdapter : RecycleViewNewsAdapter
+        recyclerViewNews.setHasFixedSize(true)
+        recyclerViewNews.layoutManager = LinearLayoutManager(this)
+        var recyclerViewNewsAdapter: RecyclerViewNewsAdapter = RecyclerViewNewsAdapter(newsModelArrayList, newsModelArrayList.size)
+        recyclerViewNews.adapter = recyclerViewNewsAdapter
 
+        //recyclerViewNews!!.setHasFixedSize(true)
+        //recyclerViewNews!!.layoutManager = LinearLayoutManager(this)
+        //var recyclerViewNewsAdapter: RecyclerViewNewsAdapter = RecyclerViewNewsAdapter(newsModelArrayList, newsModelArrayList.size)
+        //recyclerViewNews!!.adapter = recyclerViewNewsAdapter
     }
 }
