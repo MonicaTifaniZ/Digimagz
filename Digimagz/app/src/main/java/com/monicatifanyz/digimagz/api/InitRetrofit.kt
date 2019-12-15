@@ -342,6 +342,27 @@ class InitRetrofit() {
         })
     }
 
+    fun getUserFromApi(email: String) {
+        apiInterface.getUser(email).enqueue(object :Callback<DefaultStructureUser>{
+            override fun onFailure(call: Call<DefaultStructureUser>, t: Throwable) {
+                Log.e("getUserFromApi", t.message.toString())
+            }
+
+            override fun onResponse(
+                call: Call<DefaultStructureUser>,
+                response: Response<DefaultStructureUser>
+            ) {
+                val list = ArrayList<UserModel>()
+                if (response.code() == 200) {
+                    response.body()?.data?.let { list.addAll(it) }
+                    Log.e("getUserFromApi", list.size.toString())
+                }
+                onRetrofitSuccess.onSuccessGetData(list)
+            }
+
+        })
+    }
+
     //Interface
     interface OnRetrofitSuccess {
         fun onSuccessGetData(arrayList: ArrayList<*>?)

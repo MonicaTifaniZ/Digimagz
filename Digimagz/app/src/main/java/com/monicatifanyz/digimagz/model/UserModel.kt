@@ -7,6 +7,8 @@ class UserModel(
     @field:SerializedName("USER_NAME") var userName: String,
     @field:SerializedName("PROFILEPIC_URL") var urlPic: String,
     @field:SerializedName("LAST_LOGIN") var lastLogin: String,
-    @field:SerializedName("UID") private val UID: String,
-    @field:SerializedName("DISABLED") private val disabled: String
+    @field:SerializedName("DATE_BIRTH") var dateBirth: String,
+    @field:SerializedName("GENDER") var gender: String,
+    @field:SerializedName("USER_TYPE") val userType: String,
+    @field:SerializedName("PASSWORD") val password: String
 )
