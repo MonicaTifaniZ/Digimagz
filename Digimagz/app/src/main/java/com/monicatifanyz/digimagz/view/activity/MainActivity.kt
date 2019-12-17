@@ -110,13 +110,6 @@ class MainActivity : AppCompatActivity() {
                         doubleBackToExit = false
                         return true
                     }
-                    R.id.emagz_menu -> {
-                        fragmentManager.beginTransaction().hide(fragmentActive).show(fragmentEmagz)
-                            .commit()
-                        fragmentActive = fragmentEmagz
-                        doubleBackToExit = false
-                        return true
-                    }
                     R.id.login_profile_menu -> {
                         if (firebaseUser != null) {
                             fragmentManager.beginTransaction().hide(fragmentActive)
