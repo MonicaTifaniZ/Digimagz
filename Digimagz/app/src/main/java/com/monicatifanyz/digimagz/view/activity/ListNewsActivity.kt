@@ -24,6 +24,9 @@ class ListNewsActivity : AppCompatActivity() {
     private lateinit var initRetrofit:InitRetrofit
     private var params : String = ""
     private var materialToolbar : MaterialToolbar? = null
+    private lateinit var recyclerView:RecyclerView
+
+    private
 
 
 
@@ -33,7 +36,6 @@ class ListNewsActivity : AppCompatActivity() {
 
         params = intent.getStringExtra("params")
 
-        materialToolbar = findViewById(R.id.materialToolbar)
         setSupportActionBar(materialToolbar)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         setTitle("")

@@ -71,10 +71,12 @@ interface ApiInterface {
 
     @FormUrlEncoded
     @HTTP(method = "PUT", path = "user/index_put", hasBody = true)
-    fun putUserPhoto(
-        @Field("email") email: String, @Field(
-            "pic_url"
-        ) pic_url: String
+    fun putUser(
+        @Field("email") email: String,
+        @Field("name") name: String,
+        @Field("pic_url") pic_url: String,
+        @Field("date_birth") date_birth: String,
+        @Field("gender") gender: String
     ): Call<DefaultStructureUser>
 
 }

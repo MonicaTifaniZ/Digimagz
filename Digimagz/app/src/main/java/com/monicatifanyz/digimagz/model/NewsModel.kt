@@ -11,7 +11,7 @@ class NewsModel(
     @field:SerializedName("VIEWS_COUNT") var viewsCount: Int,
     @field:SerializedName("SHARES_COUNT") var sharesCount: Int,
     @field:SerializedName("DATE_NEWS") var dateNews: String,
-    @field:SerializedName("NEWS_IMAGE") var newsImage: String,
+    @field:SerializedName("NEWS_IMAGE") var newsImage: ArrayList<String>,
     @field:SerializedName("LIKES") var likes: Int,
     @field:SerializedName("COMMENTS") var comments: Int,
     @field:SerializedName("EDITOR") var editor: String,

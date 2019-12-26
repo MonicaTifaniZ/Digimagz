@@ -363,6 +363,28 @@ class InitRetrofit() {
         })
     }
 
+    fun putUserToApi(
+        email: String,
+        name: String,
+        pic_url: String,
+        date_birth: String,
+        gender: String
+    ) {
+        apiInterface.putUser(email, name, pic_url, date_birth, gender).enqueue(object : Callback<DefaultStructureUser>{
+            override fun onFailure(call: Call<DefaultStructureUser>, t: Throwable) {
+                Log.e("putUserToApi", t.message)
+            }
+
+            override fun onResponse(
+                call: Call<DefaultStructureUser>,
+                response: Response<DefaultStructureUser>
+            ) {
+                Log.e("putUserToApi", "Success")
+            }
+
+        })
+    }
+
     //Interface
     interface OnRetrofitSuccess {
         fun onSuccessGetData(arrayList: ArrayList<*>?)

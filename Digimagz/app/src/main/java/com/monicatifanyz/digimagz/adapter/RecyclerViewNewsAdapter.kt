@@ -102,7 +102,7 @@ class RecyclerViewNewsAdapter(
             }
             holder.itemView.setOnClickListener {
                 var intent:Intent = Intent(it.context, DetailNewsActivity::class.java)
-                intent.putExtra(INTENT_PARAM_KEY_NEWS_DATA, newsModel)
+                intent.putExtra("data", newsModel)
                 it.context.startActivity(intent)
 
             }

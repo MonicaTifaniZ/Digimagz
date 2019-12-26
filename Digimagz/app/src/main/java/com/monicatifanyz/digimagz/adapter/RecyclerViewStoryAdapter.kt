@@ -15,7 +15,7 @@ class RecyclerViewStoryAdapter(
     var storyModelArrayList: ArrayList<StoryModel>
 ) : RecyclerView.Adapter<RecyclerViewStoryAdapter.ViewHolder>() {
 
-    private val  INTENT_PARAM_KEY_STORY_DATA : String = "INTENT_PARAM_KEY_STORY_DATA"
+    private val  INTENT_PARAM_KEY_STORY_DATA : String = "data"
     private lateinit var newsImage : String
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
