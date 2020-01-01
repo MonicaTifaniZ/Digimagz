@@ -9,6 +9,7 @@ import android.provider.MediaStore
 class Constant {
     val URL_IMAGE_NEWS = "http://digimon.kristomoyo.com/images/news/"
     val URL_IMAGE_STORY = "http://digimon.kristomoyo.com/images/coverstory/"
+    val URL_IMAGE_GALLERY = "http://digimon.kristomoyo.com/images/gallery/"
     val URL = "http://digimagz.kristomoyo.com/"
 
     fun getOrientationFromURI(

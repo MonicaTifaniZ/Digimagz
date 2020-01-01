@@ -54,7 +54,12 @@ class RecyclerViewNewsCoverStoryAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val newsCoverStoryModel: NewsCoverStoryModel = newsCoverStoryModelArrayList.get(position)
 
-        newsImage = Constant().URL_IMAGE_NEWS + newsCoverStoryModel.newsImage
+        if (newsCoverStoryModel.nameCategory.equals("Galeri")) {
+            newsImage = Constant().URL_IMAGE_GALLERY + newsCoverStoryModel.idNews + "/" + newsCoverStoryModel.newsImage.get(0)
+        } else {
+            newsImage = Constant().URL_IMAGE_NEWS + newsCoverStoryModel.newsImage.get(0)
+        }
+
         initRetrofitLike = InitRetrofit()
 
         simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")

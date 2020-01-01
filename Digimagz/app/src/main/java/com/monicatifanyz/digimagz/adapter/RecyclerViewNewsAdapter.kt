@@ -56,7 +56,12 @@ class RecyclerViewNewsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val newsModel : NewsModel = newsModelArrayList.get(position)
 
-        newsImage = Constant().URL_IMAGE_NEWS + newsModel.newsImage
+        if (newsModel.nameCategory.equals("Galeri")) {
+            newsImage = Constant().URL_IMAGE_GALLERY + newsModel.idNews + "/" + newsModel.newsImage.get(0)
+        } else {
+            newsImage = Constant().URL_IMAGE_NEWS + newsModel.newsImage.get(0)
+        }
+
         initRetrofitLike = InitRetrofit()
 
         simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -80,7 +85,6 @@ class RecyclerViewNewsAdapter(
                             }
                         }
                     }
-
                 })
             }
 
@@ -100,6 +104,7 @@ class RecyclerViewNewsAdapter(
                 holder.ivNotLike.visibility = View.VISIBLE
 
             }
+
             holder.itemView.setOnClickListener {
                 var intent:Intent = Intent(it.context, DetailNewsActivity::class.java)
                 intent.putExtra(INTENT_PARAM_KEY_NEWS_DATA, newsModel)

@@ -40,7 +40,6 @@ class InitRetrofit() {
                 }
                 onRetrofitSuccess.onSuccessGetData(list)
             }
-
         })
     }
 

@@ -61,12 +61,12 @@ class VideoFragment : Fragment() {
     }
 
     fun showRecyclerViewVideo(list: ArrayList<VideoModel>) {
-        recyclerViewNews.layoutManager = LinearLayoutManager(context)
+        recyclerViewVideo.layoutManager = LinearLayoutManager(context)
         val recyclerViewVideoAdapter = RecyclerViewVideoAdapter(list, context!!)
         recyclerViewVideo.adapter = recyclerViewVideoAdapter
         recyclerViewVideoAdapter.notifyDataSetChanged()
-        shimmerFrameLayoutNews.stopShimmer()
-        shimmerFrameLayoutNews.visibility = View.GONE
+        shimmer_view_container.stopShimmer()
+        shimmer_view_container.visibility = View.GONE
     }
 
     fun scrollUp() {
