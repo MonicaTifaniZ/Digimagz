@@ -9,6 +9,6 @@ class UserModel(
     @field:SerializedName("LAST_LOGIN") var lastLogin: String,
     @field:SerializedName("DATE_BIRTH") var dateBirth: String,
     @field:SerializedName("GENDER") var gender: String,
-    @field:SerializedName("USER_TYPE") val userType: String,
-    @field:SerializedName("PASSWORD") val password: String
+    @field:SerializedName("USER_TYPE") var userType: String,
+    @field:SerializedName("PASSWORD") var password: String
 )

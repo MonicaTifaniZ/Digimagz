@@ -1,7 +1,6 @@
 package com.monicatifanyz.digimagz
 
 import android.content.Context
-import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
@@ -9,8 +8,10 @@ import android.provider.MediaStore
 class Constant {
     val URL_IMAGE_NEWS = "http://digimon.kristomoyo.com/images/news/"
     val URL_IMAGE_STORY = "http://digimon.kristomoyo.com/images/coverstory/"
-    val URL_IMAGE_GALERY = "http://digimon.kristomoyo.com/images/gallery/"
-    val URL = "http://digimagz.kristomoyo.com/"
+    val URL_IMAGE_GALLERY = "http://digimon.kristomoyo.com/images/gallery/"
+    val URL_IMAGE_EMAGZ = "http://digimon.kristomoyo.com/emagazine/thumbnail/"
+    val URL_DOWNLOAD_EMAGZ = "http://digimon.kristomoyo.com/api/emagz/download/"
+    val URL = "http://digimon.kristomoyo.com/"
 
     fun getOrientationFromURI(
         context: Context,
@@ -33,11 +34,12 @@ class Constant {
         val id = uri[uri.size - 1]
         val sel = MediaStore.Images.Media._ID + "=?"
         val cursor = context.contentResolver.query(contentUri, proj, sel, arrayOf(id), null)
-        if(cursor != null && cursor.moveToFirst()){
-            var column_index: Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.ORIENTATION)
-            orient= cursor.getInt(column_index)
+        if (cursor != null && cursor.moveToFirst()) {
+            var column_index: Int =
+                cursor.getColumnIndexOrThrow(MediaStore.Images.Media.ORIENTATION)
+            orient = cursor.getInt(column_index)
         }
-        if(cursor != null){
+        if (cursor != null) {
             cursor.close()
 
         }
@@ -45,19 +47,26 @@ class Constant {
 
     }
 
-    fun getOrientationForV19AndUp(context: Context, contentUri: Uri):Int{
-        var orient:Int=0
+    fun getOrientationForV19AndUp(context: Context, contentUri: Uri): Int {
+        var orient: Int = 0
 
         val proj = arrayOf(MediaStore.Images.Media.ORIENTATION)
         val uri = contentUri.toString().split("/")
-        val id = uri[uri.size-1]
-        val sel = MediaStore.Images.Media._ID+"=?"
-        val cursor = context.contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,proj, sel, arrayOf(id), null)
-        if(cursor != null && cursor.moveToFirst()){
-            var column_index:Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.ORIENTATION)
+        val id = uri[uri.size - 1]
+        val sel = MediaStore.Images.Media._ID + "=?"
+        val cursor = context.contentResolver.query(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            proj,
+            sel,
+            arrayOf(id),
+            null
+        )
+        if (cursor != null && cursor.moveToFirst()) {
+            var column_index: Int =
+                cursor.getColumnIndexOrThrow(MediaStore.Images.Media.ORIENTATION)
             orient = cursor.getInt(column_index)
         }
-        if(cursor !=null){
+        if (cursor != null) {
             cursor.close()
         }
 
