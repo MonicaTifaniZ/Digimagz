@@ -11,5 +11,6 @@ class CommentModel(
     @field:SerializedName("IS_APPROVED") var isApproved: String,
     @field:SerializedName("DATE_COMMENT") var dateComment: String,
     @field:SerializedName("USER_NAME") var userName: String,
-    @field:SerializedName("PROFILEPIC_URL") var profilpicUrl: String
+    @field:SerializedName("PROFILEPIC_URL") var profilpicUrl: String,
+    @field:SerializedName("ADMIN_REPLY") var adminReply: String
 ) : Serializable

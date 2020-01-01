@@ -2,6 +2,7 @@ package com.monicatifanyz.digimagz.model
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import java.util.*
 
 class NewsModel(
     @field:SerializedName("ID_NEWS") var idNews: String,
