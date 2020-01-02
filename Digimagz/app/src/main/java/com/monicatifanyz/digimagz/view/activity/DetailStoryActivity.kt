@@ -20,10 +20,7 @@ import com.monicatifanyz.digimagz.adapter.RecyclerViewStoryAdapter as RecyclerVi
 class DetailStoryActivity : AppCompatActivity() {
 
     private lateinit var initRetrofit:InitRetrofit
-    private lateinit var recyclerViewNews: RecyclerView
-
     private lateinit var storyModel: StoryModel
-
     private lateinit var newsImage:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,9 +52,8 @@ class DetailStoryActivity : AppCompatActivity() {
             override fun onSuccessGetData(arrayList: ArrayList<*>?) {
                 if (arrayList != null) {
                     if (arrayList.isNotEmpty()){
-                        textViewCountNews.text = arrayList.size.toString() + "Story Pilihan"
+                        textViewCountNews.text = arrayList.size.toString() + " Story Pilihan"
                         showRecyclerListViewNews(arrayList as ArrayList<NewsCoverStoryModel>)
-
                     } else{
                         Log.e("Size", "Empty")
                     }
@@ -69,9 +65,7 @@ class DetailStoryActivity : AppCompatActivity() {
     fun showRecyclerListViewNews(newsModelArrayList: ArrayList<NewsCoverStoryModel>){
         recyclerViewNews.setHasFixedSize(true)
         recyclerViewNews.layoutManager = LinearLayoutManager(this)
-        var recyclerViewNewsAdapter :RecyclerViewNewsCoverStoryAdapter = RecyclerViewNewsCoverStoryAdapter(newsModelArrayList)
-        recyclerViewNews.adapter = recyclerViewNewsAdapter
-
+        recyclerViewNews.adapter = RecyclerViewNewsCoverStoryAdapter(newsModelArrayList)
     }
 
     override fun onSupportNavigateUp(): Boolean {

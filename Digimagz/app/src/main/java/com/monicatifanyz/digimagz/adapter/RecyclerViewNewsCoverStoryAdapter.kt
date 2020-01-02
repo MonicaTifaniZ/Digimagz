@@ -32,16 +32,6 @@ class RecyclerViewNewsCoverStoryAdapter(
     val INTENT_PARAM_KEY_NEWS_COVER_STORY_DATA : String = "INTENT_PARAM_KEY_NEWS_DATA"
     private lateinit var initRetrofitLike : InitRetrofit
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val textViewTitle = view.textViewTitle
-        val textViewDate = view.textViewDate
-        val textViewComment = view.textViewComment
-        val textViewLike = view.textViewLike
-        val imageViewNews = view.imageViewNews
-        val ivNotLike = view.ivNotLike
-        val ivLiked = view.ivLiked
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view:View = LayoutInflater.from(parent.context).inflate(R.layout.list_news, parent, false)
         return ViewHolder(view)
@@ -71,9 +61,7 @@ class RecyclerViewNewsCoverStoryAdapter(
 
         if (firebaseUser != null){
             firebaseUser!!.email?.let {
-                initRetrofitLike.getLikeFromApi(newsCoverStoryModel.idNews,
-                    it
-                )
+                initRetrofitLike.getLikeFromApi(newsCoverStoryModel.idNews, it)
                 initRetrofitLike.setOnRetrofitSuccess(object: InitRetrofit.OnRetrofitSuccess{
                     override fun onSuccessGetData(arrayList: java.util.ArrayList<*>?) {
                         if (arrayList != null) {
@@ -107,10 +95,20 @@ class RecyclerViewNewsCoverStoryAdapter(
             }
             holder.itemView.setOnClickListener {
                 var intent: Intent = Intent(it.context, DetailNewsCoverStoryActivity::class.java)
-                intent.putExtra(INTENT_PARAM_KEY_NEWS_COVER_STORY_DATA, newsCoverStoryModel)
+                intent.putExtra("data", newsCoverStoryModel)
                 it.context.startActivity(intent)
             }
 
         }
+    }
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+        val textViewTitle = view.textViewTitle
+        val textViewDate = view.textViewDate
+        val textViewComment = view.textViewComment
+        val textViewLike = view.textViewLike
+        val imageViewNews = view.imageViewNews
+        val ivNotLike = view.ivNotLike
+        val ivLiked = view.ivLiked
     }
 }

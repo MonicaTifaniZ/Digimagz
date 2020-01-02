@@ -1,21 +1,20 @@
 package com.monicatifanyz.digimagz.adapter
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.monicatifanyz.digimagz.R
 import com.monicatifanyz.digimagz.model.CommentModel
 import kotlinx.android.synthetic.main.list_comment.view.*
-import kotlinx.android.synthetic.main.list_news.view.*
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class RecyclerViewCommentAdapter(
     var commentModelArrayList: ArrayList<CommentModel>,
@@ -36,36 +35,43 @@ class RecyclerViewCommentAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val commentModel : CommentModel = commentModelArrayList.get(position)
+        val commentModel = commentModelArrayList[position]
 
         simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         try {
             date = simpleDateFormat.parse(commentModel.dateComment)
-
-        }catch (e : ParseException){
+        } catch (e: ParseException) {
             e.printStackTrace()
         }
 
-        var format : String? = null
-        if(commentModel.profilpicUrl.equals("null")){
-            if(commentModel.profilpicUrl.length>4){
-                format = commentModel.profilpicUrl.substring(commentModel.profilpicUrl.length- 4)
-
-            }
-
+        if (commentModel.profilpicUrl != null) {
+            Glide.with(context)
+                .asBitmap()
+                .load(commentModel.profilpicUrl)
+                .placeholder(R.color.chef)
+                .into(holder.circleImageViewComment)
         }
 
-        if (format!= null){
-            if (format.equals(".jpg") || format.equals(".png")){
-                Glide.with(context)
-                    .load(commentModel.profilpicUrl)
-                    .into(holder.circleImageViewComment)
+        holder.textViewCommentUser.setText(commentModel.email)
+        holder.textViewCommentContent.setText(commentModel.commentText)
+        holder.textViewCommentDate.text = DateFormat.getDateInstance(
+            DateFormat.LONG,
+            Locale("in", "ID")
+        ).format(date)
+
+        if (commentModel.adminReply != null) {
+            holder.linearLayoutReply.setVisibility(View.VISIBLE)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                holder.textViewCommentContentAdmin.setText(
+                    Html.fromHtml(
+                        commentModel.adminReply,
+                        Html.FROM_HTML_MODE_COMPACT
+                    )
+                )
+            } else {
+                holder.textViewCommentContentAdmin.setText(Html.fromHtml(commentModel.adminReply))
             }
         }
-        holder.textViewCommentUser.text = commentModel.email
-        holder.textViewCommentContent.text = commentModel.commentText
-        holder.textViewCommentDate.text = DateFormat.getDateInstance(DateFormat.LONG,Locale("in","ID")).format(date)
-
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -73,8 +79,8 @@ class RecyclerViewCommentAdapter(
         val textViewCommentUser = view.textViewCommentUser
         val textViewCommentContent = view.textViewCommentContent
         val textViewCommentDate = view.textViewCommentDate
-
-
+        val textViewCommentContentAdmin = view.textViewCommentContentAdmin
+        val linearLayoutReply = view.linearLayoutReply
     }
 
 }

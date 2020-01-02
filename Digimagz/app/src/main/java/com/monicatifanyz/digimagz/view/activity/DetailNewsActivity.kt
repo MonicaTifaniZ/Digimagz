@@ -52,19 +52,13 @@ class DetailNewsActivity : AppCompatActivity(){
 
     private lateinit var newsModel : NewsModel
 
-
     private lateinit var simpleDateFormat:SimpleDateFormat
     private lateinit var date: Date;
     private lateinit var newsImage : String
     private lateinit var dataHtml : String
 
-
-    private lateinit var mPager : ViewPager
-    private lateinit var relativeLayoutSlider: RelativeLayout
     private var currentPage: Int = 0
     private var NUM_PAGES: Int = 0
-
-    private lateinit var indicator: CirclePageIndicator
 
     private lateinit var initRetrofit: InitRetrofit
     private lateinit var initRetrofitComment: InitRetrofit
@@ -76,14 +70,13 @@ class DetailNewsActivity : AppCompatActivity(){
     private lateinit var recyclerViewCommentAdapter : RecyclerViewCommentAdapter
     private var userModels:ArrayList<UserModel> = ArrayList()
 
-
     private var swiper : Handler = Handler()
     private var swipeRunnable : Runnable = object : Runnable {
         override fun run() {
             if (currentPage == NUM_PAGES){
                 currentPage = 0
             }
-            mPager.setCurrentItem(currentPage++, true)
+            pagerSlider.setCurrentItem(currentPage++, true)
 
             swiper.postDelayed(this, 3000)
         }
@@ -109,9 +102,6 @@ class DetailNewsActivity : AppCompatActivity(){
         initRetrofitShare = InitRetrofit()
         initRetrofitUser = InitRetrofit()
 
-
-
-
         webViewDetailNews.settings.javaScriptEnabled = true
         webViewDetailNews.settings.javaScriptCanOpenWindowsAutomatically = true
         webViewDetailNews.settings.pluginState = WebSettings.PluginState.ON
@@ -136,7 +126,7 @@ class DetailNewsActivity : AppCompatActivity(){
                 } else if (newsModel.nameCategory.equals("Artikel")){
                     newsImage = Constant().URL_IMAGE_NEWS + newsModel.newsImage.get(0)
                 } else if (newsModel.nameCategory.equals("Galeri")){
-                    newsImage = Constant().URL_IMAGE_GALERY + newsModel.idNews + "/"  + newsModel.idNews + "/" + newsModel.newsImage.get(0)
+                    newsImage = Constant().URL_IMAGE_GALLERY + newsModel.idNews + "/"  + newsModel.idNews + "/" + newsModel.newsImage.get(0)
                     relativeLayoutSlider.visibility = View.VISIBLE
                     imageViewCover.visibility = View.GONE
                     showSlider(newsModel.newsImage, newsModel.idNews)
@@ -144,18 +134,17 @@ class DetailNewsActivity : AppCompatActivity(){
                 Glide.with(this)
                     .load(newsImage)
                     .into(imageViewCover)
-
             }
         }
 
         if (newsModel.titleNews != null){
             textViewTitle.text = newsModel.titleNews
-
         }
+
         if (date != null){
             textViewDate.text = DateFormat.getDateInstance(DateFormat.LONG, Locale("in", "ID")).format(date)
-
         }
+
         if (newsModel.contentNews != null){
             dataHtml = "<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"></head>"
             dataHtml =  dataHtml + "<body width=\"100%\" height=\"auto\">" + newsModel.contentNews  + "</body></html>"
@@ -163,12 +152,10 @@ class DetailNewsActivity : AppCompatActivity(){
             webViewDetailNews.loadDataWithBaseURL(null, dataHtml,"text/html", "UTF-8", null )
             webViewDetailNews.webViewClient = WebViewClient()
 
-            textViewContent.text = Html.fromHtml(newsModel.contentNews.toString())
-
+            textViewContent.text = Html.fromHtml(newsModel.contentNews)
         }
         if (newsModel.nameCategory != null){
             textViewCategory.text = newsModel.nameCategory
-
         }
 
         textViewLike.text = newsModel.likes.toString()
@@ -196,7 +183,7 @@ class DetailNewsActivity : AppCompatActivity(){
 
             })
 
-            initRetrofitView.postViewToApi(newsModel.idNews, firebaseUser.email)
+            initRetrofitView.postViewToApi(newsModel.idNews, firebaseUser.email!!)
 
             initRetrofitLike.getLikeFromApi(newsModel.idNews, firebaseUser.email.toString())
             initRetrofitLike.setOnRetrofitSuccess(object : InitRetrofit.OnRetrofitSuccess{
@@ -214,50 +201,33 @@ class DetailNewsActivity : AppCompatActivity(){
 
             })
 
-            imageButtonLike.setOnClickListener({
+            imageButtonLike.setOnClickListener {
                 imageButtonLike.visibility = View.GONE
                 imageButtonDislike.visibility = View.VISIBLE
                 initRetrofit.postLikeToApi(newsModel.idNews, firebaseUser.email.toString())
-                newsModel.likes = newsModel.likes + 1
+                newsModel.likes = newsModel.likes.toString().toInt() + 1
                 newsModel.checkLike = 1
                 textViewLike.text = newsModel.likes.toString()
-            })
-
-            imageButtonDislike.setOnClickListener{
-                imageButtonLike.visibility = View.GONE
-                imageButtonDislike.visibility = View.VISIBLE
-                initRetrofit.deleteLikeFromApi(newsModel.idNews, firebaseUser.email.toString())
-                newsModel.likes = newsModel.likes - 1
-                newsModel.checkLike = 2
-                textViewLike.setText(newsModel.likes.toString())
-
-
             }
 
-            imageButtonSendComment.setOnClickListener({
+            imageButtonDislike.setOnClickListener{
+                imageButtonLike.visibility = View.VISIBLE
+                imageButtonDislike.visibility = View.GONE
+                initRetrofit.deleteLikeFromApi(newsModel.idNews, firebaseUser.email.toString())
+                newsModel.likes = newsModel.likes.toString().toInt() - 1
+                newsModel.checkLike = 2
+                textViewLike.setText(newsModel.likes.toString())
+            }
+
+            imageButtonSendComment.setOnClickListener {
                 if (textInputEditTextComment.length() > 0){
                     initRetrofit.postCommentToApi(newsModel.idNews, firebaseUser.email.toString(), textInputEditTextComment.text.toString())
-
-                    var calendar : Calendar = Calendar.getInstance()
-                    var dateFormat:DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-
-//                    recyclerViewCommentAdapter.add(CommentModel(
-//                        null.toString(),
-//                        null.toString(),
-//                        firebaseUser.email.toString(), textInputEditTextComment.text.toString(),
-//                        null.toString(), dateFormat.format(calendar.time),userModels.get(0).userName, userModels.get(0).urlPic))
-
-                    textViewCountComment.text = textViewCountComment.text.toString()+1
-
-                    textInputEditTextComment.text
-
-
+                    textViewCountComment.text = (textViewCountComment.text.toString().toInt() + 1).toString()
+                    textInputEditTextComment.text?.clear()
                 } else{
                     Toast.makeText(this, "Harap isi komentar dengan benar" , Toast.LENGTH_SHORT).show()
                 }
-            })
-
-
+            }
 
 
         } else{
@@ -272,46 +242,41 @@ class DetailNewsActivity : AppCompatActivity(){
         }
 
     }
-//belom
+
     fun setRecyclerView(){
         initRetrofitComment.getCommentFromApi(newsModel.idNews)
         initRetrofitComment.setOnRetrofitSuccess(object : InitRetrofit.OnRetrofitSuccess{
             override fun onSuccessGetData(arrayList: ArrayList<*>?) {
                 if (arrayList != null) {
-                    Log.i("Size", arrayList.size.toString())
-                    textViewCountComment.text = arrayList.size.toString()
-
-                    var commentModels = ArrayList<CommentModel>()
-                    for (i in arrayList.size-1..0){
-
+                    if (arrayList.isNotEmpty()) {
+                        Log.i("Size", arrayList.size.toString())
+                        textViewCountComment.text = arrayList.size.toString()
+                        showRecyclerListViewComment(arrayList as ArrayList<CommentModel>)
                     }
-
-                    showRecyclerListViewComment(commentModels)
-
                 }
             }
-
         })
 
-    initRetrofitNews.getNewsRelatedFromApi(newsModel.idNews)
-    initRetrofitNews.setOnRetrofitSuccess(object: InitRetrofit.OnRetrofitSuccess{
-        override fun onSuccessGetData(arrayList: java.util.ArrayList<*>?) {
-            if (arrayList != null) {
-                if (!arrayList.isEmpty()){
-                    Log.i("Size", arrayList.size.toString())
-                    showRecyclerListViewNews(arrayList as ArrayList<NewsModel>)
+        initRetrofitNews.getNewsRelatedFromApi(newsModel.idNews)
+        initRetrofitNews.setOnRetrofitSuccess(object: InitRetrofit.OnRetrofitSuccess{
+            override fun onSuccessGetData(arrayList: java.util.ArrayList<*>?) {
+                if (arrayList != null) {
+                    if (arrayList.isNotEmpty()){
+                        Log.i("Size", arrayList.size.toString())
+                        showRecyclerListViewNews(arrayList as ArrayList<NewsModel>)
 
-                } else{
-                    Log.i("Size", arrayList.size.toString())
+                    } else{
+                        Log.i("Size", arrayList.size.toString())
+                    }
                 }
             }
-        }
-    })
-
+        })
     }
 
     fun showRecyclerListViewComment(commentModelArrayList: ArrayList<CommentModel>){
-        recyclerViewComment.layoutManager =  LinearLayoutManager(this, RecyclerView.VERTICAL, true)
+        Log.e("showRecyclerListView", commentModelArrayList.size.toString())
+        recyclerViewComment.setHasFixedSize(true)
+        recyclerViewComment.layoutManager =  LinearLayoutManager(this)
         recyclerViewCommentAdapter = RecyclerViewCommentAdapter(commentModelArrayList, applicationContext)
         recyclerViewComment.adapter = recyclerViewCommentAdapter
     }
@@ -330,32 +295,33 @@ class DetailNewsActivity : AppCompatActivity(){
 
     }
 
-fun openShare(model: NewsModel){
-    var myIntent : Intent = Intent(Intent.ACTION_SEND)
-    myIntent.setType("text/plain")
-    var shareBody : String = model.titleNews + "\n" + "http://pn10mobprd.ptpn10.co.id:8598/news/view/" + model.idNews
-    var shareSub : String = "Digimagz"
-    myIntent.putExtra(Intent.EXTRA_SUBJECT , shareSub)
-    myIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
+    fun openShare(model: NewsModel){
+        val myIntent = Intent(Intent.ACTION_SEND)
+        myIntent.setType("text/plain")
+        val shareBody : String = model.titleNews + "\n" + "http://digimagz.kristomoyo.com/news/view/" + model.idNews
+        val shareSub = "Digimagz"
+        myIntent.putExtra(Intent.EXTRA_SUBJECT , shareSub)
+        myIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
 
-    startActivity(Intent.createChooser(myIntent, "Share \"Digimagz\" via"))
+        startActivity(Intent.createChooser(myIntent, "Share \"Digimagz\" via"))
 
-}
+    }
 
     private fun showSlider(newsModelArrayList: ArrayList<String> , idNews :String){
         if(newsModelArrayList.size > 0 ){
-            mPager.adapter = ImageSliderGalleryAdapter(newsModelArrayList, idNews)
+            pagerSlider.adapter = ImageSliderGalleryAdapter(newsModelArrayList, idNews)
+            indicatorSlider.setViewPager(pagerSlider)
 
             val density: Float = resources.displayMetrics.density
 
-            indicator.radius = (5 * density)
+            indicatorSlider.radius = (5 * density)
 
             NUM_PAGES = newsModelArrayList.size
 
             swiper.postDelayed(swipeRunnable,3000)
 
 
-            indicator.setOnPageChangeListener(object :ViewPager.OnPageChangeListener{
+            indicatorSlider.setOnPageChangeListener(object :ViewPager.OnPageChangeListener{
                 override fun onPageScrollStateChanged(state: Int) {
 
                 }
@@ -380,7 +346,7 @@ fun openShare(model: NewsModel){
         }
     }
 
-    protected override fun onResume() {
+    override fun onResume() {
         super.onResume()
         setRecyclerView()
     }
@@ -394,12 +360,10 @@ fun openShare(model: NewsModel){
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK){
             if (firebaseUser !== null){
-                initRetrofitShare.postShareToApi(newsModel.idNews, firebaseUser.email)
+                initRetrofitShare.postShareToApi(newsModel.idNews, firebaseUser.email!!)
             }
         }
     }
-
-
 
 }
 

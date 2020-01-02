@@ -332,34 +332,6 @@ class InitRetrofit {
         })
     }
 
-    fun putUserToApi(
-        email: String,
-        name: String,
-        urlPic: String,
-        dateBirth: String,
-        gender: String
-    ) {
-        apiInterface.putUser(email!!, name!!, urlPic!!, dateBirth!!, gender!!)
-            .enqueue(object : Callback<DefaultStructureUser> {
-                override fun onResponse(
-                    call: Call<DefaultStructureUser>,
-                    response: Response<DefaultStructureUser>
-                ) {
-                    Log.e("putUserToApi", "Success")
-                }
-
-                override fun onFailure(
-                    call: Call<DefaultStructureUser>,
-                    t: Throwable
-                ) {
-                    Log.e(
-                        "putUserToApi",
-                        Objects.requireNonNull(t.message)
-                    )
-                }
-            })
-    }
-
     fun getLikeFromApi(idNews: String, email: String) {
         apiInterface.getLikes(idNews!!, email!!)
             .enqueue(object : Callback<DefaultStructureLike> {

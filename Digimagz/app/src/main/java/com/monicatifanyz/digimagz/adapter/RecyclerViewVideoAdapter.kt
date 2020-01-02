@@ -31,17 +31,6 @@ class RecyclerViewVideoAdapter (
     private lateinit var simpleDateFormat: SimpleDateFormat
     private lateinit var date: Date
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textViewTitle  = view.textViewTitle
-        val textViewDate  = view.textViewDate
-        val youTubePlayerViewHolder = view.youTubePlayerView
-        val frameLayoutVideo = view.frameLayoutVideo
-        val imageThumbnailVideo = view.imageViewThumbnailVideo
-        val materialButtonYoutube = view.materialButtonYoutube
-
-
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view:View= LayoutInflater.from(parent.context).inflate(R.layout.list_video, parent,false)
         return ViewHolder(view)
@@ -89,6 +78,12 @@ class RecyclerViewVideoAdapter (
         }
     }
 
-
-
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val textViewTitle  = view.textViewTitle
+        val textViewDate  = view.textViewDate
+        val youTubePlayerViewHolder = view.youTubePlayerView
+        val frameLayoutVideo = view.frameLayoutVideo
+        val imageThumbnailVideo = view.imageViewThumbnailVideo
+        val materialButtonYoutube = view.materialButtonYoutube
+    }
 }

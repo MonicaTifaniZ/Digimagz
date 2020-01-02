@@ -34,14 +34,13 @@ class ImageSliderGalleryAdapter(
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         var imageLayout : View = LayoutInflater.from(container.context).inflate(R.layout.list_image, container, false)
 
-        newsImage = Constant().URL_IMAGE_GALERY + idNews + "/" + stringArrayList.get(position)
+        newsImage = Constant().URL_IMAGE_GALLERY + idNews + "/" + stringArrayList.get(position)
 
         Glide.with(container.context)
             .load(newsImage)
             .into(imageLayout.imageViewImage)
 
         container.addView(imageLayout,0)
-
 
         return imageLayout
     }

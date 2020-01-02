@@ -31,21 +31,8 @@ class RecyclerViewNewsAdapter(
     private var firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
     private lateinit var initRetrofitLike : InitRetrofit
 
-
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val textViewTitle = view.textViewTitle
-        val textViewDate = view.textViewDate
-        val textViewComment = view.textViewComment
-        val textViewLike = view.textViewLike
-        val imageViewNews = view.imageViewNews
-        val ivNotLike = view.ivNotLike
-        val ivLiked = view.ivLiked
-
-
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
-        var view : View = LayoutInflater.from(parent.context).inflate(R.layout.list_news, parent, false)
+        val view : View = LayoutInflater.from(parent.context).inflate(R.layout.list_news, parent, false)
         return ViewHolder(view)
     }
 
@@ -76,12 +63,14 @@ class RecyclerViewNewsAdapter(
                 initRetrofitLike.setOnRetrofitSuccess(object : InitRetrofit.OnRetrofitSuccess{
                     override fun onSuccessGetData(arrayList: ArrayList<*>?) {
                         if (arrayList != null) {
-                            if (arrayList.get(0).equals("Yes")){
-                                holder.ivLiked.visibility = View.VISIBLE
-                                holder.ivNotLike.visibility = View.GONE
-                            } else if (arrayList.get(0).equals("No")){
-                                holder.ivLiked.visibility = View.GONE
-                                holder.ivNotLike.visibility = View.VISIBLE
+                            if (arrayList.isNotEmpty()) {
+                                if (arrayList.get(0).equals("Yes")){
+                                    holder.ivLiked.visibility = View.VISIBLE
+                                    holder.ivNotLike.visibility = View.GONE
+                                } else if (arrayList.get(0).equals("No")){
+                                    holder.ivLiked.visibility = View.GONE
+                                    holder.ivNotLike.visibility = View.VISIBLE
+                                }
                             }
                         }
                     }
@@ -106,7 +95,7 @@ class RecyclerViewNewsAdapter(
             }
 
             holder.itemView.setOnClickListener {
-                var intent:Intent = Intent(it.context, DetailNewsActivity::class.java)
+                val intent:Intent = Intent(it.context, DetailNewsActivity::class.java)
                 intent.putExtra("data", newsModel)
                 it.context.startActivity(intent)
 
@@ -114,5 +103,13 @@ class RecyclerViewNewsAdapter(
         }
     }
 
-
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+        val textViewTitle = view.textViewTitle
+        val textViewDate = view.textViewDate
+        val textViewComment = view.textViewComment
+        val textViewLike = view.textViewLike
+        val imageViewNews = view.imageViewNews
+        val ivNotLike = view.ivNotLike
+        val ivLiked = view.ivLiked
+    }
 }

@@ -43,22 +43,16 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlinx.android.synthetic.main.activity_detail_news.imageViewCover as imageViewCover1
+import kotlinx.android.synthetic.main.activity_detail_news.recyclerViewNews as recyclerViewNews1
+import kotlinx.android.synthetic.main.activity_detail_news.textViewContent as textViewContent1
 import kotlinx.android.synthetic.main.activity_detail_news.textViewTitle as textViewTitle1
-import kotlinx.android.synthetic.main.activity_detail_story.imageViewCover as imageViewCover1
-import kotlinx.android.synthetic.main.activity_detail_story.textViewContent as textViewContent1
 
 class DetailNewsCoverStoryActivity : AppCompatActivity() {
 
     private val firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
 
-    private lateinit var webViewDetailNews: WebView
-    private lateinit var recyclerViewComment: RecyclerView
-    private lateinit var recyclerViewNews: RecyclerView
-
-    private lateinit var linearLayoutShare: LinearLayout
-
     private lateinit var newsCoverStoryModel: NewsCoverStoryModel
-
 
     private lateinit var simpleDateFormat: SimpleDateFormat
     private lateinit var date: Date
@@ -72,11 +66,10 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
     private lateinit var initRetrofitView: InitRetrofit
     private lateinit var initRetrofitShare: InitRetrofit
     private lateinit var initRetrofitUser: InitRetrofit
+
     private lateinit var recyclerViewCommentAdapter: RecyclerViewCommentAdapter
     private var userModels: ArrayList<UserModel> = ArrayList()
 
-    private lateinit var mPager: ViewPager
-    private lateinit var relativeLayoutSlider: RelativeLayout
     private var currentPage: Int = 0
     private var NUM_PAGES: Int = 0
 
@@ -88,7 +81,7 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
             if (currentPage == NUM_PAGES) {
                 currentPage = 0
             }
-            mPager.setCurrentItem(currentPage++, true)
+            pagerSlider.setCurrentItem(currentPage++, true)
 
             swiper.postDelayed(this, 3000)
         }
@@ -98,7 +91,7 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_news_cover_story)
+        setContentView(R.layout.activity_detail_news)
 
         simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         newsCoverStoryModel = intent.getSerializableExtra("data") as NewsCoverStoryModel
@@ -125,11 +118,8 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
         webViewDetailNews.settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
         webViewDetailNews.settings.builtInZoomControls = false
 
-
-
         try {
             date = simpleDateFormat.parse(newsCoverStoryModel.dateNews)
-
         } catch (e: ParseException) {
             e.printStackTrace()
         }
@@ -141,10 +131,7 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
                 } else if (newsCoverStoryModel.nameCategory.equals("Artikel")) {
                     newsImage = Constant().URL_IMAGE_NEWS + newsCoverStoryModel.newsImage.get(0)
                 } else if (newsCoverStoryModel.nameCategory.equals("Galeri")) {
-                    newsImage =
-                        Constant().URL_IMAGE_GALERY + newsCoverStoryModel.idNews + "/" + newsCoverStoryModel.idNews + "/" + newsCoverStoryModel.newsImage.get(
-                            0
-                        )
+                    newsImage = Constant().URL_IMAGE_GALLERY + newsCoverStoryModel.idNews + "/" + newsCoverStoryModel.idNews + "/" + newsCoverStoryModel.newsImage.get(0)
                     relativeLayoutSlider.visibility = View.VISIBLE
                     imageViewCover.visibility = View.GONE
                     showSlider(newsCoverStoryModel.newsImage, newsCoverStoryModel.idNews)
@@ -159,16 +146,13 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
             textViewTitle.text = newsCoverStoryModel.titleNews
         }
         if (date != null) {
-            textViewDate.text =
-                DateFormat.getDateInstance(DateFormat.LONG, Locale("in", "ID")).format(date)
+            textViewDate.text = DateFormat.getDateInstance(DateFormat.LONG, Locale("in", "ID")).format(date)
         }
 
         if (newsCoverStoryModel.contentNews != null) {
 
-            dataHtml =
-                "<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"></head>"
-            dataHtml =
-                dataHtml + "<body width=\"100%\" height=\"auto\">" + newsCoverStoryModel.contentNews + "</body></html>"
+            dataHtml = "<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"></head>"
+            dataHtml = dataHtml + "<body width=\"100%\" height=\"auto\">" + newsCoverStoryModel.contentNews + "</body></html>"
             webViewDetailNews.loadDataWithBaseURL(null, dataHtml, "text/html", "UTF-8", null)
             webViewDetailNews.webViewClient = WebViewClient()
 
@@ -178,7 +162,6 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
 
         if (newsCoverStoryModel.nameCategory != null) {
             textViewCategory.text = newsCoverStoryModel.nameCategory
-
         }
 
         textViewLike.text = newsCoverStoryModel.likes.toString()
@@ -203,9 +186,8 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
             initRetrofitUser.setOnRetrofitSuccess(object : InitRetrofit.OnRetrofitSuccess {
                 override fun onSuccessGetData(arrayList: ArrayList<*>?) {
                     if (arrayList != null) {
-                        if (!arrayList.isEmpty()) {
+                        if (arrayList.isNotEmpty()) {
                             userModels.addAll(arrayList as ArrayList<UserModel>)
-
                         }
                     }
                 }
@@ -223,18 +205,18 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
             initRetrofitLike.setOnRetrofitSuccess(object : InitRetrofit.OnRetrofitSuccess {
                 override fun onSuccessGetData(arrayList: java.util.ArrayList<*>?) {
                     if (arrayList != null) {
-                        if (arrayList.get(0).equals("Yes")) {
-                            imageButtonDislike.visibility = View.VISIBLE
-                            imageButtonLike.visibility = View.GONE
-                        } else if (arrayList.get(0).equals("No")) {
-                            imageButtonDislike.visibility = View.GONE
-                            imageButtonLike.visibility = View.VISIBLE
+                        if (arrayList.isNotEmpty()) {
+                            if (arrayList.get(0).equals("Yes")) {
+                                imageButtonDislike.visibility = View.VISIBLE
+                                imageButtonLike.visibility = View.GONE
+                            } else if (arrayList.get(0).equals("No")) {
+                                imageButtonDislike.visibility = View.GONE
+                                imageButtonLike.visibility = View.VISIBLE
+                            }
                         }
                     }
                 }
-
             })
-
 
             imageButtonLike.setOnClickListener {
                 imageButtonLike.visibility = View.GONE
@@ -245,10 +227,9 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
                 )
                 newsCoverStoryModel.likes = newsCoverStoryModel.likes + 1
                 textViewLike.text = newsCoverStoryModel.likes.toString()
-
             }
 
-            imageButtonDislike.setOnClickListener({
+            imageButtonDislike.setOnClickListener {
                 imageButtonLike.visibility = View.VISIBLE
                 imageButtonDislike.visibility = View.GONE
                 initRetrofit.deleteLikeFromApi(
@@ -258,7 +239,7 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
                 newsCoverStoryModel.likes = newsCoverStoryModel.likes - 1
                 textViewLike.text = newsCoverStoryModel.likes.toString()
 
-            })
+            }
 
             imageButtonSendComment.setOnClickListener {
                 if (textInputEditTextComment.length() > 0) {
@@ -275,18 +256,15 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
                         .show()
                 }
             }
-
         } else {
             imageButtonLike.isEnabled = false
             imageButtonDislike.isEnabled = false
             imageButtonSendComment.isEnabled = false
             textInputEditTextComment.isEnabled = false
-
             linearLayoutShare.setOnClickListener {
                 openShare(newsCoverStoryModel)
             }
         }
-
     }
 
     fun setRecyclerView() {
@@ -296,18 +274,13 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
         initRetrofitComment.setOnRetrofitSuccess(object : InitRetrofit.OnRetrofitSuccess {
             override fun onSuccessGetData(arrayList: java.util.ArrayList<*>?) {
                 if (arrayList != null) {
-                    Log.i("Size", arrayList.size.toString())
-                    textViewCountComment.text = arrayList.size.toString()
-
-                    lateinit var commentModels: ArrayList<CommentModel>
-                    for (i in arrayList.size - 1..0) {
-                        commentModels.add(arrayList.get(i) as CommentModel)
+                    if (arrayList.isNotEmpty()) {
+                        Log.i("Size", arrayList.size.toString())
+                        textViewCountComment.text = arrayList.size.toString()
+                        showRecyclerListViewComment(arrayList as ArrayList<CommentModel>)
                     }
-
-                    showRecyclerListViewComment(arrayList as ArrayList<CommentModel>)
                 }
             }
-
         })
 
         initRetrofitNews.getNewsRelatedFromApi(newsCoverStoryModel.idNews)
@@ -317,10 +290,8 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
                     if (arrayList.isNotEmpty()) {
                         Log.i("Size", arrayList.size.toString())
                         showRecyclerListViewNews(arrayList as ArrayList<NewsModel>)
-
                     } else {
                         Log.i("Size", arrayList.size.toString())
-
                     }
                 }
             }
@@ -330,19 +301,16 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
 
     fun showRecyclerListViewComment(commentModelArrayList: ArrayList<CommentModel>) {
         recyclerViewComment.layoutManager = LinearLayoutManager(this)
-        recyclerViewCommentAdapter =
-            RecyclerViewCommentAdapter(commentModelArrayList, applicationContext)
+        recyclerViewCommentAdapter = RecyclerViewCommentAdapter(commentModelArrayList, applicationContext)
         recyclerViewComment.adapter = recyclerViewCommentAdapter
-
     }
 
     fun showRecyclerListViewNews(newsModelArrayList: ArrayList<NewsModel>) {
         recyclerViewNews.setHasFixedSize(true)
         recyclerViewNews.layoutManager = LinearLayoutManager(this)
-        var recyclerViewNewsAdapter: RecyclerViewNewsAdapter
+        val recyclerViewNewsAdapter: RecyclerViewNewsAdapter
         if (newsModelArrayList.size >= 3) {
             recyclerViewNewsAdapter = RecyclerViewNewsAdapter(newsModelArrayList, 3)
-
         } else {
             recyclerViewNewsAdapter =
                 RecyclerViewNewsAdapter(newsModelArrayList, newsModelArrayList.size)
@@ -351,21 +319,19 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
     }
 
     fun openShare(model: NewsCoverStoryModel) {
-        var myIntent: Intent = Intent(Intent.ACTION_SEND)
+        val myIntent: Intent = Intent(Intent.ACTION_SEND)
         myIntent.setType("text/plain")
-        var shareBody: String =
-            model.titleNews + "\n" + "http://digimagz.kristomoyo.com/news/view/" + model.idNews
-        var shareSub: String = "Digimagz"
+        val shareBody: String = model.titleNews + "\n" + "http://digimagz.kristomoyo.com/news/view/" + model.idNews
+        val shareSub: String = "Digimagz"
         myIntent.putExtra(Intent.EXTRA_SUBJECT, shareSub)
         myIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
-
         startActivity(Intent.createChooser(myIntent, "Share \"Digimagz\" via"))
     }
 
     fun showSlider(newsModelArrayList: ArrayList<String>, idNews: String) {
         if (newsModelArrayList.size > 0) {
-            mPager.adapter = ImageSliderGalleryAdapter(newsModelArrayList, idNews)
-            indicator.setViewPager(mPager)
+            pagerSlider.adapter = ImageSliderGalleryAdapter(newsModelArrayList, idNews)
+            indicator.setViewPager(pagerSlider)
 
             val density: Float = resources.displayMetrics.density
 
@@ -414,7 +380,7 @@ class DetailNewsCoverStoryActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK){
             if (firebaseUser != null){
-                initRetrofitShare.postShareToApi(newsCoverStoryModel.idNews, firebaseUser.email)
+                initRetrofitShare.postShareToApi(newsCoverStoryModel.idNews, firebaseUser.email!!)
             }
         }
     }

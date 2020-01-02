@@ -127,7 +127,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         fragmentManager.beginTransaction().add(R.id.frameLayoutForFragment, fragmentProfile, "Profile").hide(fragmentProfile).commit()
-        fragmentManager.beginTransaction().add(R.id.frameLayoutForFragment, fragmentEmagz, "Emagz").hide(fragmentEmagz).commit()
+//        fragmentManager.beginTransaction().add(R.id.frameLayoutForFragment, fragmentEmagz, "Emagz").hide(fragmentEmagz).commit()
         fragmentManager.beginTransaction().add(R.id.frameLayoutForFragment, fragmentSearch, "Search").hide(fragmentSearch).commit()
         fragmentManager.beginTransaction().add(R.id.frameLayoutForFragment, fragmentVideo, "Video").hide(fragmentVideo).commit()
         fragmentManager.beginTransaction().add(R.id.frameLayoutForFragment, fragmentHome, "Home").commit()

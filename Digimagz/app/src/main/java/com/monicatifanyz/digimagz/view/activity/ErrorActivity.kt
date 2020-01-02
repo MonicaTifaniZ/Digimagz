@@ -13,7 +13,7 @@ class ErrorActivity : AppCompatActivity() {
         setContentView(R.layout.activity_error)
 
         materialButtonCobaLagi.setOnClickListener {
-            startActivity(Intent(it.context, MainActivity::class.java))
+            startActivity(Intent(it.context, SplashActivity::class.java))
             finish()
         }
     }

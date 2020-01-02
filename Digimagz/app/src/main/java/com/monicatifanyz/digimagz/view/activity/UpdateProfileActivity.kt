@@ -27,7 +27,7 @@ class UpdateProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_profile)
 
-       initRetrofit = InitRetrofit()
+        initRetrofit = InitRetrofit()
 
         gender = "L"
 
@@ -53,13 +53,13 @@ class UpdateProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-    fun showDatePickerDialog(){
-        var newCalendar:Calendar = Calendar.getInstance()
-        var datePickerDialog:DatePickerDialog = DatePickerDialog(this,DatePickerDialog.OnDateSetListener{view , year, monthOfYear, dayOfMonth ->
-            var newDate : Calendar = Calendar.getInstance()
+    private fun showDatePickerDialog(){
+        val newCalendar:Calendar = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(this,DatePickerDialog.OnDateSetListener{ view, year, monthOfYear, dayOfMonth ->
+            val newDate : Calendar = Calendar.getInstance()
             newDate.set(year, monthOfYear, dayOfMonth)
-            var dateFormatter:SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale("in","ID"))
-            var dateFormatterText:SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale("in","ID"))
+            val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale("in","ID"))
+            val dateFormatterText = SimpleDateFormat("yyyy-MM-dd", Locale("in","ID"))
 
             editTextDate.setText(dateFormatterText.format(newDate.time))
             date = dateFormatter.format(newDate.time)
