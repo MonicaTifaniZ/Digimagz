@@ -19,12 +19,13 @@ import java.util.*
 
 class ImageSliderAdapter(
     var newsModelArrayList: ArrayList<NewsModel>
-): PagerAdapter() {
+): PagerAdapter(){
 
     val INTENT_PARAM_KEY_NEWS_DATA:String= "INTENT_PARAM_KEY_NEWS_DATA"
     lateinit var simpleDateFormat : SimpleDateFormat
     lateinit var date:Date
 
+    //
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         container.removeView(`object` as View)
     }

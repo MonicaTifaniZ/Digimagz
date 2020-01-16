@@ -28,8 +28,8 @@ class ApiClient {
             retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
-                //.baseUrl("http://pn10mobprd.ptpn10.co.id:8598/api/")
-                .baseUrl("http://digimon.kristomoyo.com/api/")
+                .baseUrl("http://pn10mobprd.ptpn10.co.id:8598/api/")
+//                .baseUrl("http://digimon.kristomoyo.com/api/")
                 .build()
         }
         return retrofit

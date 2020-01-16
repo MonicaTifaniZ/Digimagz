@@ -6,12 +6,19 @@ import android.os.Build
 import android.provider.MediaStore
 
 class Constant {
-    val URL_IMAGE_NEWS = "http://digimon.kristomoyo.com/images/news/"
-    val URL_IMAGE_STORY = "http://digimon.kristomoyo.com/images/coverstory/"
-    val URL_IMAGE_GALLERY = "http://digimon.kristomoyo.com/images/gallery/"
-    val URL_IMAGE_EMAGZ = "http://digimon.kristomoyo.com/emagazine/thumbnail/"
-    val URL_DOWNLOAD_EMAGZ = "http://digimon.kristomoyo.com/api/emagz/download/"
-    val URL = "http://digimon.kristomoyo.com/"
+//    val URL_IMAGE_NEWS = "http://digimon.kristomoyo.com/images/news/"
+//    val URL_IMAGE_STORY = "http://digimon.kristomoyo.com/images/coverstory/"
+//    val URL_IMAGE_GALLERY = "http://digimon.kristomoyo.com/images/gallery/"
+//    val URL_IMAGE_EMAGZ = "http://digimon.kristomoyo.com/emagazine/thumbnail/"
+//    val URL_DOWNLOAD_EMAGZ = "http://digimon.kristomoyo.com/api/emagz/download/"
+//    val URL = "http://digimon.kristomoyo.com/"
+
+    val URL_IMAGE_NEWS = "http://pn10mobprd.ptpn10.co.id:8598/images/news/"
+    val URL_IMAGE_STORY = "http://pn10mobprd.ptpn10.co.id:8598/images/coverstory/"
+    val URL_IMAGE_GALLERY = "http://pn10mobprd.ptpn10.co.id:8598/images/gallery/"
+    val URL_IMAGE_EMAGZ = "http://pn10mobprd.ptpn10.co.id:8598/emagazine/thumbnail/"
+    val URL_DOWNLOAD_EMAGZ = "http://pn10mobprd.ptpn10.co.id:8598/api/emagz/download/"
+    val URL = "http://pn10mobprd.ptpn10.co.id:8598/"
 
     fun getOrientationFromURI(
         context: Context,

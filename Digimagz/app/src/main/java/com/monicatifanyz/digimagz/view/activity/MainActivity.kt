@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fragmentSearch: Fragment
     private lateinit var fragmentEmagz: Fragment
     private lateinit var fragmentProfile: Fragment
+    private lateinit var fragmentAbout : Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         fragmentEmagz = EmagzFragment()
         fragmentProfile = ProfileFragment()
         fragmentActive = fragmentHome
+        fragmentAbout = AboutFragment()
 
         setIdpConfigList()
         authMethodPickerLayout = AuthMethodPickerLayout
@@ -121,11 +123,22 @@ class MainActivity : AppCompatActivity() {
                         }
                         return true
                     }
+                    R.id.about_menu -> {
+                        fragmentManager.beginTransaction().hide(fragmentActive).show(fragmentAbout)
+                            .commit()
+//                        if (fragmentActive === fragmentAbout) {
+//                            (fragmentSearch as SearchFragment).scrollUp()
+//                        }
+                        fragmentActive = fragmentAbout
+                        doubleBackToExit = false
+                        return true
+                    }
                 }
                 return false
             }
         })
 
+        fragmentManager.beginTransaction().add(R.id.frameLayoutForFragment,fragmentAbout,"About").hide(fragmentAbout).commit()
         fragmentManager.beginTransaction().add(R.id.frameLayoutForFragment, fragmentProfile, "Profile").hide(fragmentProfile).commit()
 //        fragmentManager.beginTransaction().add(R.id.frameLayoutForFragment, fragmentEmagz, "Emagz").hide(fragmentEmagz).commit()
         fragmentManager.beginTransaction().add(R.id.frameLayoutForFragment, fragmentSearch, "Search").hide(fragmentSearch).commit()

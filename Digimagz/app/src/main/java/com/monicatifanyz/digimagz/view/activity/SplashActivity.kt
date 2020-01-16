@@ -60,10 +60,10 @@ class SplashActivity : AppCompatActivity() {
                         call: Call<NotifValue?>,
                         response: Response<NotifValue?>
                     ) {
-                        val value: String = response.body()!!.value.toString()
-                        val message: String = response.body()!!.message.toString()
-                        Log.d("val", value)
-                        Log.d("mes", message)
+//                        val value: String = response.body()!!.value.toString()
+//                        val message: String = response.body()!!.message.toString()
+//                        Log.d("val", value)
+//                        Log.d("mes", message)
                     }
 
                 })

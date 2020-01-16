@@ -57,25 +57,27 @@ class RecyclerViewNewsAdapter(
         } catch (e: ParseException){
             e.printStackTrace()
         }
-        if (firebaseUser != null){
+        if (firebaseUser != null) {
             firebaseUser!!.email?.let {
                 initRetrofitLike.getLikeFromApi(newsModel.idNews, it)
-                initRetrofitLike.setOnRetrofitSuccess(object : InitRetrofit.OnRetrofitSuccess{
+                initRetrofitLike.setOnRetrofitSuccess(object : InitRetrofit.OnRetrofitSuccess {
                     override fun onSuccessGetData(arrayList: ArrayList<*>?) {
                         if (arrayList != null) {
                             if (arrayList.isNotEmpty()) {
-                                if (arrayList.get(0).equals("Yes")){
+                                if (arrayList.get(0).equals("Yes")) {
                                     holder.ivLiked.visibility = View.VISIBLE
                                     holder.ivNotLike.visibility = View.GONE
-                                } else if (arrayList.get(0).equals("No")){
+                                } else if (arrayList.get(0).equals("No")) {
                                     holder.ivLiked.visibility = View.GONE
                                     holder.ivNotLike.visibility = View.VISIBLE
                                 }
                             }
+
                         }
                     }
                 })
             }
+        }
 
             holder.textViewTitle.text = newsModel.titleNews
             holder.textViewLike.text = newsModel.likes.toString()
@@ -101,7 +103,6 @@ class RecyclerViewNewsAdapter(
 
             }
         }
-    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val textViewTitle = view.textViewTitle

@@ -20,5 +20,10 @@
         android:id="@+id/login_profile_menu"
         android:title="Login"
         android:icon="@drawable/selector_login_profile_menu"/>
+    <item
+        android:id="@+id/about_menu"
+        android:title="About"
+        android:icon="@drawable/selector_about_menu"/>
+
 
 </menu>
